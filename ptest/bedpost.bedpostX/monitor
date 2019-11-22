@@ -1,0 +1,43 @@
+#!/bin/sh
+echo
+echo "----- Bedpostx Monitor -----"
+finished=0
+lastprinted=0
+havedad=2
+while [ $finished -eq 0 ] ; do
+    nfin=0
+    slice=0
+    errorFiles=`ls /home/crlab/Desktop/LM3/LM1045/bedpost.bedpostX/logs/*.e* 2> /dev/null `
+    for errorFile in $errorFiles
+    do
+        if [ -s $errorFile ]; then
+            echo An error ocurred. Please check file $errorFile
+            kill -9 4200
+            exit 1
+        fi
+    done
+    while [ $slice -le 50  ];do
+        if [ -e /home/crlab/Desktop/LM3/LM1045/bedpost.bedpostX/logs/monitor/$slice ]; then
+            nfin=$(($nfin + 1))
+        fi
+        slice=$(($slice + 1))
+    done
+    newmessages=$(($nfin - $lastprinted))
+    while [ "$newmessages" -gt 0 ];do
+        lastprinted=$(($lastprinted + 1))
+        echo $lastprinted slices processed out of 50 
+        newmessages=$(($newmessages - 1))
+    done
+    if [ -f /home/crlab/Desktop/LM3/LM1045/bedpost.bedpostX/xfms/eye.mat ] ; then
+        finished=1
+        echo "All slices processed"
+	exit 
+    fi
+    if [ ! $havedad -gt 0 ]; then
+       exit 0
+    fi
+    if [ "x" == "x" ]; then
+        havedad=`ps -e -o pid | grep "4200\b" | wc -l`        
+    fi
+    sleep 180;
+done
