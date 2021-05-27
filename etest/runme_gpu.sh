@@ -1,21 +1,10 @@
 #!/bin/bash
 
-eddyExeName=eddy
-echo $PATH
-if  [[ $PATH == *"cuda"* ]]; then
-  eddyExeName=eddy_cuda7.0
-  if  [[ $PATH == *"cuda-9.1"* ]]; then
-	eddyExeName=eddy_cuda9.1
-  fi
-  if  [[ $PATH == *"cuda-10.1"* ]]; then
-	eddyExeName=eddy_cuda10.1
-  fi
-  if ! hash $eddyExeName 2>/dev/null; then
-	eddyExeName=eddy_cuda8.0
-  fi
-  echo "cuda found in path: will use $eddyExeName"
-else
-  echo "cuda NOT found in path: will use $eddyExeName"
+eddyExeName=eddy_cuda
+pth=$(which $eddyExeName)
+if [ -z "$pth" ]; then
+    echo "CUDA version not supported (try running `configure_eddy.sh`): unable to find '$eddyExeName'"
+    exit 1
 fi
 
 
