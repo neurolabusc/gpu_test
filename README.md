@@ -10,10 +10,13 @@ These sample datasets are only designed to validate the installation of these to
   * The script `runme_gpu.sh` will run `Bedpostx_GPU`.
   * If the script fails to run, make sure your version of Bedpostx_GPU matches your version of [CUDA](https://users.fmrib.ox.ac.uk/~moisesf/Bedpostx_GPU/Installation.html).
 
-* etest for [CUDA accelerated Eddy](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy/UsersGuide#The_eddy_executables)
-  * Since there are different versions of Eddy for different generations of CUDA (e.g. `eddy_cuda9.1` only works with CUDA 9.1), the shell script assumes that the executable sym-link `eddy_cuda` exists. In theory, the FSL installer should create this for you, but this requires CUDA is setup prior to installing FSL. If this is not the case, this repository includes the installer script from FSL 6.0.4, which you can run `sudo ./configure_eddy.sh -f /usr/local/fsl`. In my experience, this can fail if you have multiple versions of CUDA installed. As an alternative, I include the script `configure_eddy_cr.sh` which you can run (e.g. `./configure_eddy.sh`) and it will suggest a command you can run to create the symbolic link (e.g. `sudo ln -s /usr/local/fsl/bin/eddy_cuda9.1 /usr/local/fsl/bin/eddy_cuda`.
-  
- * ptest for [CUDA accelerated Probtrackx](https://users.fmrib.ox.ac.uk/~moisesf/Probtrackx_GPU/index.html)
+* etest for [CUDA accelerated Eddy](https://fsl.fmrib.ox.ac.uk/fsl/docs/diffusion/eddy/index.html)
+  * The script `runme_gpu.sh` will run `eddy_cuda` or `eddy_metal`.
+
+* etest2 for [CUDA accelerated Eddy](https://fsl.fmrib.ox.ac.uk/fsl/docs/diffusion/eddy/index.html) for images processed with [TOPUP](https://fsl.fmrib.ox.ac.uk/fsl/docs/diffusion/topup/index.html)
+  * The script `runme_gpu.sh` will run `eddy_cuda` or `eddy_metal`.
+
+* ptest for [CUDA accelerated Probtrackx](https://users.fmrib.ox.ac.uk/~moisesf/Probtrackx_GPU/index.html)
   * The script `runme_gpu.sh` will run `Probtrackx_GPU`.
   * If the script fails to run, make sure your version of Probtrackx_GPU matches your version of [CUDA](https://users.fmrib.ox.ac.uk/~moisesf/Probtrackx_GPU/Installation.html).
 
